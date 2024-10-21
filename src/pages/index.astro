@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Blog de Parla Argentina">
+	<h1>Bienvenido al <span class="text-gradient">Blog de Parla Argentina</span></h1>
+	<p class="instructions">
+		Descubre el fascinante mundo del lunfardo y la jerga argentina. Explora nuestro diccionario y aprende sobre los significados alternativos de las palabras más populares.
+	</p>
+	<ul role="list" class="link-card-grid">
+		<Card
+			href="/diccionario"
+			title="Diccionario de Lunfardo"
+			body="Explora nuestro extenso diccionario de términos argentinos y sus significados."
+		/>
+		<Card
+			href="#"
+			title="Frases Populares"
+			body="Descubre las expresiones más utilizadas en la Argentina y su origen."
+		/>
+		<Card
+			href="#"
+			title="Regionalismos"
+			body="Aprende sobre las variaciones lingüísticas en diferentes partes del país."
+		/>
+		<Card
+			href="#"
+			title="Etimología"
+			body="Conoce el origen y evolución de las palabras más interesantes del español rioplatense."
+		/>
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>

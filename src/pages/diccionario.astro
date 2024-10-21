@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import TranslationAPI from '../components/TranslationAPI.astro';
+
+const terms = [
+	{ word: 'Che', meaning: 'Interjección utilizada para llamar la atención de alguien', example: '¡Che, vení para acá!' },
+	{ word: 'Boludo', meaning: 'Tonto, idiota (puede ser ofensivo o amistoso según el contexto)', example: 'No seas boludo, prestá atención.' },
+	{ word: 'Mina', meaning: 'Mujer', example: 'Esa mina es muy linda.' },
+	{ word: 'Pibe', meaning: 'Chico, muchacho', example: 'El pibe de la esquina es muy simpático.' },
+	{ word: 'Quilombo', meaning: 'Lío, desorden, problema', example: 'Se armó un quilombo bárbaro en la fiesta.' },
+];
+---
+
+<Layout title="Diccionario de Lunfardo">
+	<h1>Diccionario de <span class="text-gradient">Lunfardo</span></h1>
+	<p class="instructions">
+		Explora nuestro diccionario de términos argentinos. Haz clic en cada palabra para ver su significado, ejemplo y traducción.
+	</p>
+	<ul role="list" class="link-card-grid">
+		{terms.map((term) => (
+			<Card
+				href={`#${term.word}`}
+				title={term.word}
+				body={term.meaning}
+			>
+				<p><strong>Ejemplo:</strong> {term.example}</p>
+				<TranslationAPI word={term.word} />
+			</Card>
+		))}
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>
