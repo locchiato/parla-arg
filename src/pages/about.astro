@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Acerca de">
+	<h1>Acerca del <span class="text-gradient">Blog de Parla Argentina</span></h1>
+	<div class="about-content">
+		<p>
+			El Blog de Parla Argentina nació en 2018 con la misión de compartir y preservar la riqueza lingüística del español rioplatense. Nuestro equipo está compuesto por lingüistas, escritores y entusiastas de la cultura argentina, todos unidos por la pasión de explorar y difundir las peculiaridades de nuestro idioma.
+		</p>
+		<h2>Nuestra Misión</h2>
+		<p>
+			Nos dedicamos a:
+		</p>
+		<ul>
+			<li>Documentar y explicar el lunfardo y las expresiones típicas argentinas.</li>
+			<li>Investigar la etimología y evolución de nuestras palabras más características.</li>
+			<li>Promover el entendimiento cultural a través del lenguaje.</li>
+			<li>Ofrecer recursos educativos y entretenidos para aprender sobre el español argentino.</li>
+		</ul>
+		<h2>Nuestro Equipo</h2>
+		<p>
+			Contamos con un equipo diverso de colaboradores, incluyendo:
+		</p>
+		<ul>
+			<li>Lingüistas especializados en dialectología</li>
+			<li>Escritores y periodistas culturales</li>
+			<li>Profesores de español como lengua extranjera</li>
+			<li>Investigadores en historia y sociología del lenguaje</li>
+		</ul>
+		<h2>Contacto</h2>
+		<p>
+			Si tienes preguntas, sugerencias o quieres colaborar con nosotros, no dudes en contactarnos:
+		</p>
+		<p>
+			Email: info@parlaargentina.com<br>
+			Teléfono: +54 11 1234-5678
+		</p>
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+		text-align: center;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.about-content {
+		max-width: 800px;
+		margin: 2rem auto;
+		padding: 2rem;
+		background-color: white;
+		border-radius: 8px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	}
+	h2 {
+		color: #333;
+		margin-top: 2rem;
+	}
+	p, ul {
+		line-height: 1.6;
+		color: #444;
+	}
+	ul {
+		padding-left: 1.5rem;
+	}
+</style>

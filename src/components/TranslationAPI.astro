@@ -5,41 +5,49 @@ interface Props {
 
 const { word } = Astro.props;
 
-// Simulamos una llamada a una API de traducción
-const getTranslation = (word: string) => {
+// Simulamos una llamada a una API de traducción más completa
+const getTranslation = async (word: string) => {
+	// En una implementación real, aquí se haría una llamada a una API externa
 	const translations = {
-		'Che': 'Hey',
-		'Boludo': 'Fool',
-		'Mina': 'Girl',
-		'Pibe': 'Kid',
-		'Quilombo': 'Mess',
+		'Che': { en: 'Hey', es: 'Oye', pt: 'Ei', fr: 'Hé' },
+		'Boludo': { en: 'Fool', es: 'Tonto', pt: 'Bobo', fr: 'Idiot' },
+		'Mina': { en: 'Girl', es: 'Chica', pt: 'Garota', fr: 'Fille' },
+		'Pibe': { en: 'Kid', es: 'Chico', pt: 'Garoto', fr: 'Gamin' },
+		'Quilombo': { en: 'Mess', es: 'Lío', pt: 'Bagunça', fr: 'Bordel' },
 	};
-	return translations[word] || 'Translation not available';
+	return translations[word] || { en: 'Translation not available', es: 'Traducción no disponible', pt: 'Tradução não disponível', fr: 'Traduction non disponible' };
 };
 
-const translation = getTranslation(word);
+const translations = await getTranslation(word);
 ---
 
 <div class="translation">
-	<h3>Traducción al inglés:</h3>
-	<p>{translation}</p>
+	<h3>Traducciones:</h3>
+	<ul>
+		<li><strong>Inglés:</strong> {translations.en}</li>
+		<li><strong>Español (España):</strong> {translations.es}</li>
+		<li><strong>Portugués:</strong> {translations.pt}</li>
+		<li><strong>Francés:</strong> {translations.fr}</li>
+	</ul>
 </div>
 
 <style>
 	.translation {
 		margin-top: 1rem;
-		padding: 0.5rem;
+		padding: 1rem;
 		background-color: #f0f0f0;
-		border-radius: 0.3rem;
+		border-radius: 0.5rem;
 	}
 	h3 {
-		margin: 0;
-		font-size: 1rem;
+		margin: 0 0 0.5rem 0;
+		font-size: 1.1rem;
 		color: #333;
 	}
-	p {
-		margin: 0.5rem 0 0;
-		font-weight: bold;
-		color: #0066cc;
+	ul {
+		margin: 0;
+		padding-left: 1.2rem;
+	}
+	li {
+		margin-bottom: 0.3rem;
 	}
 </style>

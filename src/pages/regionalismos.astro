@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const regionalisms = [
+	{ region: "Buenos Aires", word: "Bondi", meaning: "Colectivo o autobús" },
+	{ region: "Córdoba", word: "Culiau", meaning: "Expresión de sorpresa o enojo" },
+	{ region: "Rosario", word: "Gamba", meaning: "Pierna" },
+	{ region: "Mendoza", word: "Choche", meaning: "Automóvil" },
+];
+---
+
+<Layout title="Regionalismos Argentinos">
+	<h1>Regionalismos <span class="text-gradient">Argentinos</span></h1>
+	<p class="instructions">
+		Explora las diferentes palabras y expresiones utilizadas en distintas regiones de Argentina.
+	</p>
+	<ul role="list" class="link-card-grid">
+		{regionalisms.map((item) => (
+			<Card
+				href={`#${item.word}`}
+				title={item.word}
+				body={item.meaning}
+			>
+				<p><strong>Región:</strong> {item.region}</p>
+			</Card>
+		))}
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>

@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const phrases = [
+	{ phrase: "Me importa un bledo", meaning: "No me importa en absoluto", origin: "Deriva de la planta 'bledo', considerada de poco valor" },
+	{ phrase: "Estar al horno", meaning: "Estar en una situación difícil o complicada", origin: "Posiblemente relacionado con la idea de estar 'quemado' o en apuros" },
+	{ phrase: "Tirar la chancleta", meaning: "Festejar descontroladamente", origin: "Proviene de la acción de quitarse el calzado para bailar con más libertad" },
+	{ phrase: "Ser un trucho", meaning: "Ser falso o de mala calidad", origin: "Posiblemente del italiano 'trucco', que significa truco o engaño" },
+];
+---
+
+<Layout title="Frases Populares Argentinas">
+	<h1>Frases <span class="text-gradient">Populares</span></h1>
+	<p class="instructions">
+		Descubre algunas de las frases más populares en Argentina, su significado y origen.
+	</p>
+	<ul role="list" class="link-card-grid">
+		{phrases.map((item) => (
+			<Card
+				href={`#${item.phrase}`}
+				title={item.phrase}
+				body={item.meaning}
+			>
+				<p><strong>Origen:</strong> {item.origin}</p>
+			</Card>
+		))}
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>

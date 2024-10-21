@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const games = [
+	{
+		title: "Adivina la Palabra",
+		description: "Juego de adivinanzas con palabras del lunfardo argentino.",
+		url: "/juegos/adivina-palabra"
+	},
+	{
+		title: "Trivia Argentina",
+		description: "Pon a prueba tus conocimientos sobre la cultura y el lenguaje argentino.",
+		url: "/juegos/trivia-argentina"
+	},
+	{
+		title: "Completa la Frase",
+		description: "Completa famosas frases argentinas y aprende su significado.",
+		url: "/juegos/completa-frase"
+	}
+];
+---
+
+<Layout title="Juegos">
+	<h1>Juegos <span class="text-gradient">Lingüísticos</span></h1>
+	<p class="instructions">
+		Diviértete y aprende con nuestros juegos interactivos sobre el español argentino.
+	</p>
+	<div class="games-grid">
+		{games.map((game) => (
+			<Card
+				href={game.url}
+				title={game.title}
+				body={game.description}
+			/>
+		))}
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+		text-align: center;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+		text-align: center;
+	}
+	.games-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		padding: 2rem 0;
+	}
+</style>

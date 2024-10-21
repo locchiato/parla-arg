@@ -2,14 +2,36 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import TranslationAPI from '../components/TranslationAPI.astro';
+import Pagination from '../components/Pagination.astro';
 
-const terms = [
+// Simulamos una base de datos más grande
+const allTerms = [
 	{ word: 'Che', meaning: 'Interjección utilizada para llamar la atención de alguien', example: '¡Che, vení para acá!' },
 	{ word: 'Boludo', meaning: 'Tonto, idiota (puede ser ofensivo o amistoso según el contexto)', example: 'No seas boludo, prestá atención.' },
 	{ word: 'Mina', meaning: 'Mujer', example: 'Esa mina es muy linda.' },
 	{ word: 'Pibe', meaning: 'Chico, muchacho', example: 'El pibe de la esquina es muy simpático.' },
 	{ word: 'Quilombo', meaning: 'Lío, desorden, problema', example: 'Se armó un quilombo bárbaro en la fiesta.' },
+	{ word: 'Chabon', meaning: 'Tipo, hombre', example: 'Ese chabón es re copado.' },
+	{ word: 'Birra', meaning: 'Cerveza', example: '¿Vamos a tomar una birra?' },
+	{ word: 'Guita', meaning: 'Dinero', example: 'No tengo más guita para salir este finde.' },
+	{ word: 'Laburo', meaning: 'Trabajo', example: 'Mañana empiezo un nuevo laburo.' },
+	{ word: 'Morfar', meaning: 'Comer', example: '¿Vamos a morfar algo?' },
+	// ... más términos
 ];
+
+const itemsPerPage = 5;
+const totalPages = Math.ceil(allTerms.length / itemsPerPage);
+
+// Obtener la página actual de los parámetros de la URL
+const { page } = Astro.params;
+const currentPage = page ? parseInt(page) : 1;
+
+// Calcular el índice de inicio y fin para la página actual
+const startIndex = (currentPage - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
+
+// Obtener los términos para la página actual
+const terms = allTerms.slice(startIndex, endIndex);
 ---
 
 <Layout title="Diccionario de Lunfardo">
@@ -29,6 +51,7 @@ const terms = [
 			</Card>
 		))}
 	</ul>
+	<Pagination currentPage={currentPage} totalPages={totalPages} />
 </Layout>
 
 <style>
@@ -36,6 +59,7 @@ const terms = [
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+		text-align: center;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -51,11 +75,13 @@ const terms = [
 		background-color: white;
 		padding: 1rem;
 		border-radius: 0.4rem;
+		text-align: center;
 	}
 	.link-card-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 		gap: 1rem;
 		padding: 0;
+		margin-bottom: 2rem;
 	}
 </style>

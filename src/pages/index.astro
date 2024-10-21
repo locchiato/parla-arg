@@ -1,35 +1,69 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import FeaturedPost from '../components/FeaturedPost.astro';
+
+const featuredPosts = [
+	{
+		title: "10 Expresiones Argentinas que Todo Extranjero Debe Conocer",
+		excerpt: "Descubre las frases más utilizadas en Argentina y aprende a comunicarte como un local.",
+		image: "/images/featured-expressions.jpg",
+		url: "/blog/expresiones-argentinas"
+	},
+	{
+		title: "La Historia del Lunfardo: Del Arrabal a la Cultura Popular",
+		excerpt: "Explora los orígenes y la evolución del lenguaje característico de Buenos Aires.",
+		image: "/images/lunfardo-history.jpg",
+		url: "/blog/historia-lunfardo"
+	}
+];
 ---
 
-<Layout title="Blog de Parla Argentina">
+<Layout title="Inicio">
 	<h1>Bienvenido al <span class="text-gradient">Blog de Parla Argentina</span></h1>
 	<p class="instructions">
-		Descubre el fascinante mundo del lunfardo y la jerga argentina. Explora nuestro diccionario y aprende sobre los significados alternativos de las palabras más populares.
+		Descubre el fascinante mundo del lunfardo y la jerga argentina. Explora nuestras secciones y aprende sobre los significados alternativos de las palabras más populares.
 	</p>
-	<ul role="list" class="link-card-grid">
-		<Card
-			href="/diccionario"
-			title="Diccionario de Lunfardo"
-			body="Explora nuestro extenso diccionario de términos argentinos y sus significados."
-		/>
-		<Card
-			href="#"
-			title="Frases Populares"
-			body="Descubre las expresiones más utilizadas en la Argentina y su origen."
-		/>
-		<Card
-			href="#"
-			title="Regionalismos"
-			body="Aprende sobre las variaciones lingüísticas en diferentes partes del país."
-		/>
-		<Card
-			href="#"
-			title="Etimología"
-			body="Conoce el origen y evolución de las palabras más interesantes del español rioplatense."
-		/>
-	</ul>
+	
+	<section class="featured-posts">
+		<h2>Artículos Destacados</h2>
+		<div class="featured-grid">
+			{featuredPosts.map((post) => (
+				<FeaturedPost
+					title={post.title}
+					excerpt={post.excerpt}
+					image={post.image}
+					url={post.url}
+				/>
+			))}
+		</div>
+	</section>
+
+	<section class="quick-links">
+		<h2>Explora Nuestras Secciones</h2>
+		<ul role="list" class="link-card-grid">
+			<Card
+				href="/diccionario"
+				title="Diccionario de Lunfardo"
+				body="Explora nuestro extenso diccionario de términos argentinos y sus significados."
+			/>
+			<Card
+				href="/frases-populares"
+				title="Frases Populares"
+				body="Descubre las expresiones más utilizadas en la Argentina y su origen."
+			/>
+			<Card
+				href="/regionalismos"
+				title="Regionalismos"
+				body="Aprende sobre las variaciones lingüísticas en diferentes partes del país."
+			/>
+			<Card
+				href="/etimologia"
+				title="Etimología"
+				body="Conoce el origen y evolución de las palabras más interesantes del español rioplatense."
+			/>
+		</ul>
+	</section>
 </Layout>
 
 <style>
@@ -37,6 +71,7 @@ import Card from '../components/Card.astro';
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+		text-align: center;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -52,6 +87,20 @@ import Card from '../components/Card.astro';
 		background-color: white;
 		padding: 1rem;
 		border-radius: 0.4rem;
+		text-align: center;
+	}
+	.featured-posts, .quick-links {
+		margin-top: 2rem;
+	}
+	h2 {
+		font-size: 2rem;
+		color: #333;
+		margin-bottom: 1rem;
+	}
+	.featured-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
 	}
 	.link-card-grid {
 		display: grid;

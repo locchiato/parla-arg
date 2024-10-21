@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Adivina la Palabra">
+	<h1>Adivina la <span class="text-gradient">Palabra</span></h1>
+	<p class="instructions">
+		Intenta adivinar la palabra del lunfardo argentino. Tienes 6 intentos.
+	</p>
+	<div id="game-container">
+		<div id="word-container"></div>
+		<input type="text" id="guess-input" maxlength="1" />
+		<button id="guess-button">Adivinar</button>
+		<p id="message"></p>
+		<p id="attempts"></p>
+	</div>
+</Layout>
+
+<script>
+	const words = ['BOLUDO', 'MINA', 'PIBE', 'QUILOMBO', 'CHABON', 'BIRRA', 'GUITA', 'LABURO', 'MORFAR'];
+	let word = words[Math.floor(Math.random() * words.length)];
+	let guessedLetters = new Array(word.length).fill('_');
+	let attempts = 6;
+
+	const wordContainer = document.getElementById('word-container');
+	const guessInput = document.getElementById('guess-input');
+	const guessButton = document.getElementById('guess-button');
+	const message = document.getElementById('message');
+	const attemptsElement = document.getElementById('attempts');
+
+	function updateWordDisplay() {
+		wordContainer.textContent = guessedLetters.join(' ');
+	}
+
+	function updateAttempts() {
+		attemptsElement.textContent = `Intentos restantes: ${attempts}`;
+	}
+
+	function checkWin() {
+		if (guessedLetters.join('') === word) {
+			message.textContent = '¡Felicitaciones! Has adivinado la palabra.';
+			guessButton.disabled = true;
+			guessInput.disabled = true;
+		}
+	}
+
+	function makeGuess() {
+		const guess = guessInput.value.toUpperCase();
+		guessInput.value = '';
+
+		if (guess.length !== 1) {
+			message.textContent = 'Por favor, ingresa una sola letra.';
+			return;
+		}
+
+		if (word.includes(guess)) {
+			for (let i = 0; i < word.length; i++) {
+				if (word[i] === guess) {
+					guessedLetters[i] = guess;
+				}
+			}
+			message.textContent = '¡Correcto!';
+		} else {
+			attempts--;
+			message.textContent = 'Incorrecto. Intenta de nuevo.';
+		}
+
+		updateWordDisplay();
+		updateAttempts();
+		checkWin();
+
+		if (attempts === 0) {
+			message.textContent = `Se acabaron los intentos. La palabra era: ${word}`;
+			guessButton.disabled = true;
+			guessInput.disabled = true;
+		}
+	}
+
+	guessButton.addEventListener('click', makeGuess);
+	guessInput.addEventListener('keypress', (e) => {
+		if (e.key === 'Enter') {
+			makeGuess();
+		}
+	});
+
+	updateWordDisplay();
+	updateAttempts();
+</script>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+		text-align: center;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+		text-align: center;
+	}
+	#game-container {
+		max-width: 600px;
+		margin: 2rem auto;
+		text-align: center;
+	}
+	#word-container {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+		letter-spacing: 0.5rem;
+	}
+	#guess-input {
+		font-size: 1.2rem;
+		padding: 0.5rem;
+		width: 2rem;
+		text-align: center;
+		margin-right: 0.5rem;
+	}
+	#guess-button {
+		font-size: 1.2rem;
+		padding: 0.5rem 1rem;
+		background-color: #4a4a4a;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	#guess-button:hover {
+		background-color: #333;
+	}
+	#message, #attempts {
+		margin-top: 1rem;
+		font-size: 1.2rem;
+	}
+</style>

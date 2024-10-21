@@ -1,0 +1,64 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header>
+	<div class="header-content">
+		<a href="/" class="logo">Blog de Parla Argentina</a>
+		<nav>
+			<a href="/">Inicio</a>
+			<a href="/diccionario">Diccionario</a>
+			<a href="/frases-populares">Frases Populares</a>
+			<a href="/regionalismos">Regionalismos</a>
+			<a href="/etimologia">Etimología</a>
+			<a href="/juegos">Juegos</a>
+			<a href="/about">Acerca de</a>
+		</nav>
+		<ThemeToggle />
+	</div>
+</header>
+
+<style>
+	header {
+		background-color: #333;
+		color: white;
+		padding: 1rem;
+	}
+	.header-content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.logo {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: white;
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		gap: 1rem;
+	}
+	nav a {
+		color: white;
+		text-decoration: none;
+		padding: 0.5rem;
+		border-radius: 0.3rem;
+		transition: background-color 0.3s ease;
+	}
+	nav a:hover {
+		background-color: #555;
+	}
+	@media (max-width: 768px) {
+		.header-content {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		nav {
+			margin-top: 1rem;
+			flex-wrap: wrap;
+		}
+	}
+</style>

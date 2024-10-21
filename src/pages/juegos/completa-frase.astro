@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Completa la Frase">
+	<h1>Completa la <span class="text-gradient">Frase</span></h1>
+	<p class="instructions">
+		Completa las famosas frases argentinas y aprende su significado.
+	</p>
+	<div id="game-container">
+		<p id="phrase"></p>
+		<input type="text" id="word-input" placeholder="Escribe la palabra faltante" />
+		<button id="submit-button">Enviar</button>
+		<p id="result"></p>
+		<p id="meaning"></p>
+		<button id="next-button" style="display: none;">Siguiente frase</button>
+	</div>
+</Layout>
+
+<script>
+	const phrases = [
+		{
+			incomplete: "Más ___ que el mate",
+			complete: "Más argentino que el mate",
+			missing: "argentino",
+			meaning: "Se usa para describir algo muy típico o característico de Argentina."
+		},
+		{
+			incomplete: "Caer como ___ en el postre",
+			complete: "Caer como peludo en el postre",
+			missing: "peludo",
+			meaning: "Llegar en un momento inoportuno o fuera de lugar."
+		},
+		{
+			incomplete: "Estar en el ___ del mundo",
+			complete: "Estar en el horno del mundo",
+			missing: "horno",
+			meaning: "Estar en una situación muy complicada o difícil."
+		},
+		{
+			incomplete: "Mandar ___ a guardar",
+			complete: "Mandar fruta a guardar",
+			missing: "fruta",
+			meaning: "Decir mentiras o exagerar una historia."
+		},
+		{
+			incomplete: "Ser más ___ que una papa",
+			complete: "Ser más bueno que una papa",
+			missing: "bueno",
+			meaning: "Ser extremadamente amable o bondadoso."
+		}
+	];
+
+	let currentPhrase = 0;
+
+	const phraseElement = document.getElementById('phrase');
+	const wordInput = document.getElementById('word-input');
+	const submitButton = document.getElementById('submit-button');
+	const resultElement = document.getElementById('result');
+	const meaningElement = document.getElementById('meaning');
+	const nextButton = document.getElementById('next-button');
+
+	function loadPhrase() {
+		const phrase = phrases[currentPhrase];
+		phraseElement.textContent = phrase.incomplete;
+		wordInput.value = '';
+		resultElement.textContent = '';
+		meaningElement.textContent = '';
+		nextButton.style.display = 'none';
+	}
+
+	function checkAnswer() {
+		const userAnswer = wordInput.value.trim().toLowerCase();
+		const correctAnswer = phrases[currentPhrase].missing.toLowerCase();
+
+		if (userAnswer === correctAnswer) {
+			resultElement.textContent = '¡Correcto!';
+			meaningElement.textContent = `Significado: ${phrases[currentPhrase].meaning}`;
+		} else {
+			resultElement.textContent = `Incorrecto. La palabra correcta era: ${correctAnswer}`;
+			meaningElement.textContent = `Frase completa: "${phrases[currentPhrase].complete}"
+				Significado: ${phrases[currentPhrase].meaning}`;
+		}
+
+		nextButton.style.display = 'block';
+	}
+
+	function nextPhrase() {
+		currentPhrase++;
+		if (currentPhrase < phrases.length) {
+			loadPhrase();
+		} else {
+			finishGame();
+		}
+	}
+
+	function finishGame() {
+		phraseElement.textContent = '¡Has completado todas las frases!';
+		wordInput.style.display = 'none';
+		submitButton.style.display = 'none';
+		nextButton.style.display = 'none';
+		resultElement.textContent = 'Gracias por jugar.';
+		meaningElement.textContent = '';
+	}
+
+	submitButton.addEventListener('click', checkAnswer);
+	nextButton.addEventListener('click', nextPhrase);
+
+	loadPhrase();
+</script>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+		text-align: center;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+		text-align: center;
+	}
+	#game-container {
+		max-width: 600px;
+		margin: 2rem auto;
+		text-align: center;
+	}
+	#phrase {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	#word-input {
+		font-size: 1.2rem;
+		padding: 0.5rem;
+		width: 60%;
+		margin-right: 0.5rem;
+	}
+	#submit-button, #next-button {
+		font-size: 1.2rem;
+		padding: 0.5rem 1rem;
+		background-color: #4a4a4a;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	#submit-button:hover, #next-button:hover {
+		background-color: #333;
+	}
+	#result, #meaning {
+		margin-top: 1rem;
+		font-size: 1.2rem;
+	}
+</style>

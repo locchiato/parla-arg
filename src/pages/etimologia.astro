@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+
+const etymologies = [
+	{ word: "Che", origin: "Posiblemente del mapuche 'che' (gente) o del guaraní 'che' (yo)", explanation: "Utilizado como interjección para llamar la atención" },
+	{ word: "Pibe", origin: "Del genovés 'pivetto' (niño)", explanation: "Usado para referirse a un chico o muchacho joven" },
+	{ word: "Chabon", origin: "Del italiano 'ciovane' (joven)", explanation: "Utilizado para referirse a un hombre, especialmente joven" },
+	{ word: "Mina", origin: "Del italiano 'mina' (mujer)", explanation: "Usado coloquialmente para referirse a una mujer" },
+];
+---
+
+<Layout title="Etimología de Palabras Argentinas">
+	<h1>Etimología <span class="text-gradient">Argentina</span></h1>
+	<p class="instructions">
+		Descubre el origen y evolución de algunas de las palabras más características del español rioplatense.
+	</p>
+	<ul role="list" class="link-card-grid">
+		{etymologies.map((item) => (
+			<Card
+				href={`#${item.word}`}
+				title={item.word}
+				body={item.origin}
+			>
+				<p><strong>Explicación:</strong> {item.explanation}</p>
+			</Card>
+		))}
+	</ul>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		line-height: 1.6;
+		margin: 1rem 0;
+		border: 1px solid rgba(var(--accent), 25%);
+		background-color: white;
+		padding: 1rem;
+		border-radius: 0.4rem;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 1rem;
+		padding: 0;
+	}
+</style>

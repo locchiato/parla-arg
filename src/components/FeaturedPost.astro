@@ -1,0 +1,61 @@
+---
+interface Props {
+	title: string;
+	excerpt: string;
+	image: string;
+	url: string;
+}
+
+const { title, excerpt, image, url } = Astro.props;
+---
+
+<div class="featured-post">
+	<img src={image} alt={title} />
+	<div class="content">
+		<h3>{title}</h3>
+		<p>{excerpt}</p>
+		<a href={url}>Leer más</a>
+	</div>
+</div>
+
+<style>
+	.featured-post {
+		background-color: white;
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		transition: transform 0.3s ease;
+	}
+	.featured-post:hover {
+		transform: translateY(-5px);
+	}
+	img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+	.content {
+		padding: 1rem;
+	}
+	h3 {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.5rem;
+		color: #333;
+	}
+	p {
+		margin: 0 0 1rem 0;
+		color: #666;
+	}
+	a {
+		display: inline-block;
+		background-color: #4a4a4a;
+		color: white;
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+		text-decoration: none;
+		transition: background-color 0.3s ease;
+	}
+	a:hover {
+		background-color: #333;
+	}
+</style>
